@@ -45,11 +45,17 @@ export default class Section extends React.Component {
       handlePersonalEditSave,
       handlePersonalEditCancel,
       handleAddEducation,
-      handleEditEducation,
-      handleEditEducationSave,
-      handleAddExperience,
       handleAddEducationSave,
       handleAddEducationCancel,
+      handleEditEducation,
+      handleEditEducationSave,
+      handleEditEducationDelete,
+      handleAddExperience,
+      handleAddExperienceSave,
+      handleAddExperienceCancel,
+      handleEditExperience,
+      handleEditExperienceSave,
+      handleEditExperienceDelete,
     } = this.props;
     return (
       <div className="sections-container">
@@ -60,6 +66,7 @@ export default class Section extends React.Component {
           address={user.general.address}
           jobTitle={user.general.jobTitle}
           edit={user.general.generalEdit}
+          photo={user.general.photo}
           handlePersonalEdit={handlePersonalEdit}
           handlePersonalEditCancel={handlePersonalEditCancel}
           handlePersonalEditSave={handlePersonalEditSave}
@@ -71,17 +78,26 @@ export default class Section extends React.Component {
           expendedEducation={expendedEducation}
           handleEducationExpansion={this.handleEducationExpansion}
           handleAddEducation={handleAddEducation}
-          handleEditEducation={handleEditEducation}
-          handleEditEducationSave={handleEditEducationSave}
-          educationEditObj={user.education.educationEditObj}
           handleAddEducationSave={handleAddEducationSave}
           handleAddEducationCancel={handleAddEducationCancel}
+          handleEditEducation={handleEditEducation}
+          handleEditEducationSave={handleEditEducationSave}
+          handleEditEducationDelete={handleEditEducationDelete}
+          educationEditObj={user.education.educationEditObj}
         />
         <ProfessionalExperience
+          experienceArray={user.experience.experienceArray}
           addExperience={user.experience.addExperience}
+          experienceEdit={user.experience.experienceEdit}
           expendedExperience={expendedExperience}
           handleExperienceExpansion={this.handleExperienceExpansion}
           handleAddExperience={handleAddExperience}
+          handleAddExperienceSave={handleAddExperienceSave}
+          handleAddExperienceCancel={handleAddExperienceCancel}
+          handleEditExperience={handleEditExperience}
+          handleEditExperienceSave={handleEditExperienceSave}
+          handleEditExperienceDelete={handleEditExperienceDelete}
+          experienceEditObj={user.experience.experienceEditObj}
         />
       </div>
     );

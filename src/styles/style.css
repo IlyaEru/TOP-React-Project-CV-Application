@@ -220,11 +220,20 @@ main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  width: 100%;
+  width: 80%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
+}
+
+@media (orientation: portrait) {
+  main {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    -ms-grid-rows: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+  }
 }
 
 main .sections-container {
@@ -250,6 +259,13 @@ main .sections-container .section {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 3px;
+}
+
+@media (orientation: portrait) {
+  main .sections-container {
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
 }
 
 main .sections-container .section-header-wraper {
@@ -306,13 +322,15 @@ main .sections-container .section-content-wraper .personal-details-name {
 main .sections-container .personal-details-section {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 100px auto;
-      grid-template-columns: 100px auto;
+  -ms-grid-columns: auto 1fr;
+      grid-template-columns: auto 1fr;
   gap: 1rem 2rem;
 }
 
 main .sections-container .personal-details-section img.personal-photo {
   height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
 }
 
 main .sections-container .personal-details-section h4,
@@ -332,6 +350,10 @@ main .sections-container .section-edit {
   padding: 2rem 10%;
 }
 
+main .sections-container .section-edit .description-input {
+  grid-column: 1 / -1;
+}
+
 main .sections-container .section-edit .input {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -339,7 +361,8 @@ main .sections-container .section-edit .input {
   position: relative;
 }
 
-main .sections-container .section-edit .input input {
+main .sections-container .section-edit .input input,
+main .sections-container .section-edit .input textarea {
   width: 100%;
   border: none;
   border-bottom: 2px solid #e5e7eb;
@@ -347,22 +370,33 @@ main .sections-container .section-edit .input input {
   transition: all 200ms;
 }
 
-main .sections-container .section-edit .input input:focus ~ label, main .sections-container .section-edit .input input:not(:placeholder-shown) ~ label {
+main .sections-container .section-edit .input input#description-input, main .sections-container .section-edit .input input#experience-description-input,
+main .sections-container .section-edit .input textarea#description-input,
+main .sections-container .section-edit .input textarea#experience-description-input {
+  border: 2px solid #e5e7eb;
+}
+
+main .sections-container .section-edit .input input:focus ~ label, main .sections-container .section-edit .input input:not(:placeholder-shown) ~ label,
+main .sections-container .section-edit .input textarea:focus ~ label,
+main .sections-container .section-edit .input textarea:not(:placeholder-shown) ~ label {
   -webkit-transform: translateY(-90%);
           transform: translateY(-90%);
   opacity: 1;
 }
 
-main .sections-container .section-edit .input input:focus {
+main .sections-container .section-edit .input input:focus,
+main .sections-container .section-edit .input textarea:focus {
   outline: none;
   border-bottom: 2px solid #317dad;
 }
 
-main .sections-container .section-edit .input input.date-input:not(:placeholder-shown) ~ label {
+main .sections-container .section-edit .input input.date-input:not(:placeholder-shown) ~ label,
+main .sections-container .section-edit .input textarea.date-input:not(:placeholder-shown) ~ label {
   opacity: 0.4;
 }
 
-main .sections-container .section-edit .input input.date-input:valid ~ label {
+main .sections-container .section-edit .input input.date-input:valid ~ label,
+main .sections-container .section-edit .input textarea.date-input:valid ~ label {
   opacity: 1;
 }
 
@@ -405,6 +439,18 @@ main .sections-container .section-edit .edit-btns button {
   gap: 5px;
 }
 
+main .sections-container .section-edit .photo-input label {
+  margin-right: 0;
+  font-weight: bold;
+}
+
+main .sections-container .section-edit .photo-input label::after {
+  content: " (optional)";
+  font-weight: 100;
+  opacity: 0.4;
+  font-size: 0.8rem;
+}
+
 main .sections-container .expandable-section.expanded ~ div {
   opacity: 1;
   height: auto;
@@ -418,6 +464,7 @@ main .sections-container .expandable-section.expanded ~ div .btn {
 }
 
 main .sections-container .education-details-section,
+main .sections-container .section-edit,
 main .sections-container .experience-details-section {
   display: -ms-grid;
   display: grid;
@@ -431,8 +478,18 @@ main .sections-container .experience-details-section {
   padding: 0;
 }
 
+main .sections-container .education-details-section.personal-datails-edit,
+main .sections-container .section-edit.personal-datails-edit,
+main .sections-container .experience-details-section.personal-datails-edit {
+  height: auto;
+  opacity: 1;
+  padding: 2rem 10%;
+}
+
 main .sections-container .education-details-section .add-education-btn,
 main .sections-container .education-details-section .add-experience-btn,
+main .sections-container .section-edit .add-education-btn,
+main .sections-container .section-edit .add-experience-btn,
 main .sections-container .experience-details-section .add-education-btn,
 main .sections-container .experience-details-section .add-experience-btn {
   border-color: #317dad;
@@ -454,6 +511,8 @@ main .sections-container .experience-details-section .add-experience-btn {
 
 main .sections-container .education-details-section .add-education-btn .add-img,
 main .sections-container .education-details-section .add-experience-btn .add-img,
+main .sections-container .section-edit .add-education-btn .add-img,
+main .sections-container .section-edit .add-experience-btn .add-img,
 main .sections-container .experience-details-section .add-education-btn .add-img,
 main .sections-container .experience-details-section .add-experience-btn .add-img {
   height: 1.3rem;
@@ -463,26 +522,51 @@ main .education-edit.section-edit {
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: (auto)[5];
-  -ms-grid-columns: (1fr)[2];
-      grid-template: repeat(5, auto)/repeat(2, 1fr);
+  -ms-grid-columns: (46%)[2];
+      grid-template: repeat(5, auto)/repeat(2, 46%);
 }
 
 main .education-edit.section-edit .degree-input,
 main .education-edit.section-edit .school-input,
 main .education-edit.section-edit .edit-btns {
+  -ms-grid-columns: 1fr 2fr;
+      grid-template-columns: 1fr 2fr;
   grid-column: 1 / -1;
+}
+
+main .education-edit.section-edit .degree-input img,
+main .education-edit.section-edit .school-input img,
+main .education-edit.section-edit .edit-btns img {
+  height: 1.6rem;
+}
+
+main .education-edit.section-edit .education-edit-btns {
+  -ms-grid-columns: 1fr 1fr 2fr;
+      grid-template-columns: 1fr 1fr 2fr;
+}
+
+@media (max-width: 600px) {
+  main .education-edit.section-edit .education-edit-btns {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+  main .education-edit.section-edit .education-edit-btns .education-confirm-btn {
+    grid-column: 1/ -1;
+  }
 }
 
 main .education-edit.section-edit .date-input-wraper {
   margin-top: 0.6rem;
 }
 
-main .education-list ul {
+main .education-list ul,
+main .experience-list ul {
   list-style: none;
   padding: 0;
 }
 
-main .education-list ul li {
+main .education-list ul li,
+main .experience-list ul li {
   border-top: 1px solid darkgrey;
   padding: 0.5rem 0;
   display: -ms-grid;
@@ -493,7 +577,10 @@ main .education-list ul li {
   gap: 3px;
 }
 
-main .education-list ul li .school {
+main .education-list ul li .school,
+main .education-list ul li .job-title,
+main .experience-list ul li .school,
+main .experience-list ul li .job-title {
   font-weight: bold;
   color: #215270;
   -ms-grid-row: 1;
@@ -502,48 +589,234 @@ main .education-list ul li .school {
   grid-column: 1;
 }
 
-main .education-list ul li .degree {
+main .education-list ul li .degree,
+main .education-list ul li .employer,
+main .experience-list ul li .degree,
+main .experience-list ul li .employer {
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;
   grid-column: 2 / 3;
   color: #215270;
 }
 
-main .education-list ul li .start-date {
+main .education-list ul li .start-date,
+main .experience-list ul li .start-date {
   -ms-grid-row: 2;
   grid-row: 2;
 }
 
-main .education-list ul li .end-date {
+main .education-list ul li .end-date,
+main .experience-list ul li .end-date {
   -ms-grid-row: 2;
   grid-row: 2;
 }
 
-main .education-list ul li .country {
+main .education-list ul li .country,
+main .experience-list ul li .country {
   -ms-grid-row: 2;
   grid-row: 2;
 }
 
-main .education-list ul li .edit-education-btn {
+main .education-list ul li .edit-education-btn,
+main .experience-list ul li .edit-education-btn {
   -ms-grid-column: 4;
   -ms-grid-column-span: 1;
   grid-column: 4 / span 1;
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   grid-row: 1 / span 2;
+  padding: 0.5rem;
 }
 
-main .education-list ul li .edit-education-btn > img {
+main .education-list ul li .edit-education-btn > img,
+main .experience-list ul li .edit-education-btn > img {
   height: 2rem;
 }
 
+main .experience-details-section .edit-experience-btn {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1 / span 2;
+  padding: 0.5rem;
+}
+
+main .experience-details-section .edit-experience-btn > img {
+  height: 2rem;
+}
+
+main .add-experience-section.section-edit,
+main .Experience-edit.section-edit {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (auto)[5];
+  -ms-grid-columns: (46%)[2];
+      grid-template: repeat(5, auto)/repeat(2, 46%);
+}
+
+main .add-experience-section.section-edit .job-title-input,
+main .add-experience-section.section-edit .employer-input,
+main .Experience-edit.section-edit .job-title-input,
+main .Experience-edit.section-edit .employer-input {
+  grid-column: 1 / -1;
+}
+
+main .add-experience-section.section-edit .date-input-wraper,
+main .Experience-edit.section-edit .date-input-wraper {
+  margin-top: 0.6rem;
+}
+
+main .add-experience-section.section-edit .edit-btns,
+main .Experience-edit.section-edit .edit-btns {
+  grid-column: 1 / -1;
+}
+
+main .Experience-edit.section-edit .edit-btns.Experience-edit-btns {
+  -ms-grid-columns: 1fr 1fr 2fr;
+      grid-template-columns: 1fr 1fr 2fr;
+}
+
+@media (max-width: 600px) {
+  main .Experience-edit.section-edit .edit-btns.Experience-edit-btns {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+  main .Experience-edit.section-edit .edit-btns.Experience-edit-btns .Experience-confirm-btn {
+    grid-column: 1/ -1;
+  }
+}
+
+main .Experience-edit.section-edit .edit-btns.Experience-edit-btns img {
+  height: 1.6rem;
+}
+
+main label {
+  margin-right: -3px;
+}
+
 main .preview-container {
+  font-size: 0.8rem;
   background: white;
   margin: 2rem;
   aspect-ratio: 1 / 1.4;
   border-radius: 5px;
   -webkit-box-shadow: 0 0 20px 0px #00000021;
           box-shadow: 0 0 20px 0px #00000021;
+}
+
+main .preview-container .preview-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .preview-container .preview-header .resume-photo {
+  height: 5em;
+  width: 5em;
+  border-radius: 50%;
+  margin-top: 2rem;
+}
+
+main .preview-container .preview-header h2.preview-fullname {
+  margin-bottom: 0.2rem;
+}
+
+main .preview-container .preview-header h3.preview-job-title {
+  font-weight: normal;
+}
+
+main .preview-container .preview-header .preview-job-title {
+  margin: 0 0 0.5rem 0;
+}
+
+main .preview-container .preview-header .preview-general-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+
+main .preview-container .preview-header .preview-general-info span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+
+main .preview-container .preview-header .preview-education,
+main .preview-container .preview-header .preview-experience {
+  width: 80%;
+}
+
+main .preview-container .preview-header .preview-education .preview-education-header,
+main .preview-container .preview-header .preview-education .preview-experience-header,
+main .preview-container .preview-header .preview-experience .preview-education-header,
+main .preview-container .preview-header .preview-experience .preview-experience-header {
+  width: 100%;
+  border-bottom: 1px solid;
+  margin-bottom: 0;
+}
+
+main .preview-container .preview-header .preview-education .preview-education-list,
+main .preview-container .preview-header .preview-education .preview-experience-list,
+main .preview-container .preview-header .preview-experience .preview-education-list,
+main .preview-container .preview-header .preview-experience .preview-experience-list {
+  list-style: none;
+  padding-left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
+}
+
+main .preview-container .preview-header .preview-education .preview-education-list li,
+main .preview-container .preview-header .preview-education .preview-experience-list li,
+main .preview-container .preview-header .preview-experience .preview-education-list li,
+main .preview-container .preview-header .preview-experience .preview-experience-list li {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr;
+  -ms-grid-columns: auto 1fr;
+      grid-template: auto 1fr / auto 1fr;
+  gap: 2px 3rem;
+}
+
+main .preview-container .preview-header .preview-education .preview-education-list li .date,
+main .preview-container .preview-header .preview-education .preview-experience-list li .date,
+main .preview-container .preview-header .preview-experience .preview-education-list li .date,
+main .preview-container .preview-header .preview-experience .preview-experience-list li .date {
+  -ms-grid-column: 1;
+  grid-column: 1;
+  -ms-grid-row: 1;
+  grid-row: 1;
+}
+
+main .preview-container .preview-header .preview-education .preview-education-list li .degree-name,
+main .preview-container .preview-header .preview-education .preview-education-list li .job-title-name,
+main .preview-container .preview-header .preview-education .preview-experience-list li .degree-name,
+main .preview-container .preview-header .preview-education .preview-experience-list li .job-title-name,
+main .preview-container .preview-header .preview-experience .preview-education-list li .degree-name,
+main .preview-container .preview-header .preview-experience .preview-education-list li .job-title-name,
+main .preview-container .preview-header .preview-experience .preview-experience-list li .degree-name,
+main .preview-container .preview-header .preview-experience .preview-experience-list li .job-title-name {
+  font-weight: bold;
+}
+
+main .preview-container .preview-header .preview-general-img {
+  height: 1rem;
 }
 
 /* Footer */

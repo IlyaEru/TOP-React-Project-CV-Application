@@ -14,6 +14,7 @@ export default function PersonalDetails({
   address,
   jobTitle,
   edit,
+  photo,
   handlePersonalEdit,
   handlePersonalEditCancel,
   handlePersonalEditSave,
@@ -23,14 +24,23 @@ export default function PersonalDetails({
     return (
       <div className="section">
         <SectionHeader handleClick={handlePersonalEdit} edit={edit} sectionName="Edit Personal Details" />
-        <div className="section-content-wraper section-edit">
+        <div className="section-content-wraper section-edit personal-datails-edit">
+          <div className="photo-input">
+            <label htmlFor="avatar">Photo</label>
+            <input
+              type="file"
+              id="avatar-input"
+              name="avatar"
+              accept="image/png, image/jpeg"
+            />
+          </div>
           <div className="input">
             <input defaultValue={fullName} placeholder=" " id="full-name-input" type="text" />
             <label htmlFor="full-name-input">Full name</label>
           </div>
           <div className="input">
             <input defaultValue={jobTitle} placeholder=" " id="job-title-input" type="text" />
-            <label htmlFor="job-title-input">Job title</label>
+            <label htmlFor="job-title-input">Job Title</label>
           </div>
           <div className="input">
             <input defaultValue={email} placeholder=" " id="email-input" type="email" />
@@ -62,7 +72,7 @@ export default function PersonalDetails({
     <div className="section">
       <SectionHeader handleClick={handlePersonalEdit} edit={edit} sectionName="Personal Details" />
       <div className="section-content-wraper personal-details-section">
-        <img className="personal-photo" src={defaultImg} alt="cv" />
+        <img className="personal-photo" src={photo} alt="cv" />
         <h3 className="personal-details-name">{fullName}</h3>
         <h4>JobTitle</h4>
         <span className="jobtitle-detail">{jobTitle}</span>
@@ -77,6 +87,7 @@ export default function PersonalDetails({
   );
 }
 PersonalDetails.propTypes = {
+  photo: PropTypes.string,
   fullName: PropTypes.string,
   email: PropTypes.string,
   address: PropTypes.string,
@@ -91,4 +102,5 @@ PersonalDetails.defaultProps = {
   email: '',
   address: '',
   jobTitle: '',
+  photo: defaultImg,
 };

@@ -26,6 +26,7 @@ export default class Main extends React.Component {
         },
         experience: {
           experienceEdit: false,
+          experienceEditObj: {},
           addExperience: false,
           experienceArray: [],
         },
@@ -40,6 +41,12 @@ export default class Main extends React.Component {
     this.handleAddEducationCancel = this.handleAddEducationCancel.bind(this);
     this.handleEditEducation = this.handleEditEducation.bind(this);
     this.handleEditEducationSave = this.handleEditEducationSave.bind(this);
+    this.handleEditEducationDelete = this.handleEditEducationDelete.bind(this);
+    this.handleAddExperienceSave = this.handleAddExperienceSave.bind(this);
+    this.handleAddExperienceCancel = this.handleAddExperienceCancel.bind(this);
+    this.handleEditExperience = this.handleEditExperience.bind(this);
+    this.handleEditExperienceSave = this.handleEditExperienceSave.bind(this);
+    this.handleEditExperienceDelete = this.handleEditExperienceDelete.bind(this);
   }
 
   handlePersonalEdit() {
@@ -47,6 +54,7 @@ export default class Main extends React.Component {
       user: {
         general: {
           generalEdit: true,
+          photo: prevState.user.general.photo,
           fullName: prevState.user.general.fullName,
           email: prevState.user.general.email,
           address: prevState.user.general.address,
@@ -55,12 +63,14 @@ export default class Main extends React.Component {
         },
         education: {
           educationEdit: prevState.user.education.educationEdit,
+          educationEditObj: prevState.user.education.educationEditObj,
           addEducation: prevState.user.education.addEducation,
           educationArray: prevState.user.education.educationArray,
 
         },
         experience: {
           experienceEdit: prevState.user.experience.experienceEdit,
+          experienceEditObj: prevState.user.experience.experienceEditObj,
           addExperience: prevState.user.experience.addExperience,
           experienceArray: prevState.user.experience.experienceArray,
         },
@@ -73,6 +83,7 @@ export default class Main extends React.Component {
       user: {
         general: {
           generalEdit: false,
+          photo: prevState.user.general.photo,
           fullName: prevState.user.general.fullName,
           email: prevState.user.general.email,
           address: prevState.user.general.address,
@@ -81,12 +92,13 @@ export default class Main extends React.Component {
         },
         education: {
           educationEdit: prevState.user.education.educationEdit,
+          educationEditObj: prevState.user.education.educationEditObj,
           addEducation: prevState.user.education.addEducation,
           educationArray: prevState.user.education.educationArray,
-
         },
         experience: {
           experienceEdit: prevState.user.experience.experienceEdit,
+          experienceEditObj: prevState.user.experience.experienceEditObj,
           addExperience: prevState.user.experience.addExperience,
           experienceArray: prevState.user.experience.experienceArray,
         },
@@ -95,16 +107,19 @@ export default class Main extends React.Component {
   }
 
   handlePersonalEditSave() {
+    const photo = document.querySelector('#avatar-input').files[0];
+    // eslint-disable-next-line react/destructuring-assignment
+    const photoInput = photo ? URL.createObjectURL(photo) : this.state.user.general.photo;
     const fullNameInput = document.querySelector('#full-name-input').value;
     const jobTitleInput = document.querySelector('#job-title-input').value;
     const emailInput = document.querySelector('#email-input').value;
     const phoneInput = document.querySelector('#phone-input').value;
     const addressInput = document.querySelector('#address-input').value;
-
     this.setState((prevState) => ({
       user: {
         general: {
           generalEdit: false,
+          photo: photoInput || prevState.user.general.photoInput,
           fullName: fullNameInput || prevState.user.general.fullName,
           email: emailInput || prevState.user.general.email,
           address: addressInput || prevState.user.general.address,
@@ -112,9 +127,17 @@ export default class Main extends React.Component {
           phone: phoneInput || prevState.user.general.phone,
         },
         education: {
-          educationEdit: false,
+          educationEdit: prevState.user.education.educationEdit,
+          educationEditObj: prevState.user.education.educationEditObj,
+          addEducation: prevState.user.education.addEducation,
+          educationArray: prevState.user.education.educationArray,
         },
-        experience: {},
+        experience: {
+          experienceEdit: prevState.user.experience.experienceEdit,
+          experienceEditObj: prevState.user.experience.experienceEditObj,
+          addExperience: prevState.user.experience.addExperience,
+          experienceArray: prevState.user.experience.experienceArray,
+        },
       },
     }));
   }
@@ -143,6 +166,7 @@ export default class Main extends React.Component {
     const countryInput = document.querySelector('#country-input').value;
     const startDateInput = document.querySelector('#start-date-input').value;
     const endDateInput = document.querySelector('#end-date-input').value;
+    const descriptionInput = document.querySelector('#description-input').value;
 
     const educationId = e.currentTarget.parentNode.parentNode.getAttribute('id');
     // eslint-disable-next-line react/destructuring-assignment
@@ -155,8 +179,19 @@ export default class Main extends React.Component {
       city: cityInput || '',
       startDate: startDateInput || '',
       endDate: endDateInput || '',
+      description: descriptionInput || '',
       id: educationId,
     };
+    stateCopy.education.educationEdit = false;
+    this.setState({ user: stateCopy });
+  }
+
+  handleEditEducationDelete(e) {
+    const educationId = e.currentTarget.parentNode.parentNode.getAttribute('id');
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    const editedIndex = stateCopy.education.educationArray.findIndex((x) => x.id === educationId);
+    stateCopy.education.educationArray.splice(editedIndex, 1);
     stateCopy.education.educationEdit = false;
     this.setState({ user: stateCopy });
   }
@@ -168,6 +203,91 @@ export default class Main extends React.Component {
     this.setState({ user: stateCopy });
   }
 
+  handleAddExperienceSave() {
+    const jobTitleInput = document.querySelector('#job-title-input').value;
+    const employerInput = document.querySelector('#employer-input').value;
+    const cityInput = document.querySelector('#experience-city-input').value;
+    const countryInput = document.querySelector('#experience-country-input').value;
+    const startDateInput = document.querySelector('#experience-start-date-input').value;
+    const endDateInput = document.querySelector('#experience-end-date-input').value;
+    const descriptionInput = document.querySelector('#experience-description-input').value;
+    const experienceId = uniqid();
+
+    const newExperience = {
+      jobTitle: jobTitleInput || '',
+      employer: employerInput || '',
+      country: countryInput || '',
+      city: cityInput || '',
+      startDate: startDateInput || '',
+      endDate: endDateInput || '',
+      description: descriptionInput || '',
+      id: experienceId,
+
+    };
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    stateCopy.experience.experienceArray.push(newExperience);
+    stateCopy.experience.addExperience = false;
+    this.setState({ user: stateCopy });
+  }
+
+  handleAddExperienceCancel() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    stateCopy.experience.addExperience = false;
+    stateCopy.experience.experienceEdit = false;
+    this.setState({ user: stateCopy });
+  }
+
+  handleEditExperience(e) {
+    const experienceId = e.currentTarget.parentNode.getAttribute('id');
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    const experienceObj = stateCopy.experience.experienceArray.find((x) => x.id === experienceId);
+    stateCopy.experience.experienceEdit = true;
+    stateCopy.experience.experienceEditObj = experienceObj;
+    this.setState({ user: stateCopy });
+  }
+
+  handleEditExperienceSave(e) {
+    const jobTitleInput = document.querySelector('#job-title-input').value;
+    const employerInput = document.querySelector('#employer-input').value;
+    const cityInput = document.querySelector('#experience-city-input').value;
+    const countryInput = document.querySelector('#experience-country-input').value;
+    const startDateInput = document.querySelector('#experience-start-date-input').value;
+    const endDateInput = document.querySelector('#experience-end-date-input').value;
+    const descriptionInput = document.querySelector('#experience-description-input').value;
+
+    const experienceId = e.currentTarget.parentNode.parentNode.getAttribute('id');
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    const editedIndex = stateCopy
+      .experience.experienceArray.findIndex((x) => x.id === experienceId);
+    stateCopy.experience.experienceArray[editedIndex] = {
+      jobTitle: jobTitleInput || '',
+      employer: employerInput || '',
+      country: countryInput || '',
+      city: cityInput || '',
+      startDate: startDateInput || '',
+      endDate: endDateInput || '',
+      description: descriptionInput || '',
+      id: experienceId,
+    };
+    stateCopy.experience.experienceEdit = false;
+    this.setState({ user: stateCopy });
+  }
+
+  handleEditExperienceDelete(e) {
+    const experienceId = e.currentTarget.parentNode.parentNode.getAttribute('id');
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    const editedIndex = stateCopy
+      .experience.experienceArray.findIndex((x) => x.id === experienceId);
+    stateCopy.experience.experienceArray.splice(editedIndex, 1);
+    stateCopy.experience.experienceEdit = false;
+    this.setState({ user: stateCopy });
+  }
+
   handleAddEducationSave() {
     const degreeInput = document.querySelector('#degree-input').value;
     const schoolInput = document.querySelector('#school-input').value;
@@ -175,6 +295,8 @@ export default class Main extends React.Component {
     const countryInput = document.querySelector('#country-input').value;
     const startDateInput = document.querySelector('#start-date-input').value;
     const endDateInput = document.querySelector('#end-date-input').value;
+    const descriptionInput = document.querySelector('#description-input').value;
+
     const educationId = uniqid();
 
     const newEducation = {
@@ -184,6 +306,7 @@ export default class Main extends React.Component {
       city: cityInput || '',
       startDate: startDateInput || '',
       endDate: endDateInput || '',
+      description: descriptionInput || '',
       id: educationId,
 
     };
@@ -210,15 +333,23 @@ export default class Main extends React.Component {
           handlePersonalEditSave={this.handlePersonalEditSave}
           handlePersonalEdit={this.handlePersonalEdit}
           handlePersonalEditCancel={this.handlePersonalEditCancel}
-          handleAddExperience={this.handleAddExperience}
           handleAddEducation={this.handleAddEducation}
-          handleEditEducation={this.handleEditEducation}
-          handleEditEducationSave={this.handleEditEducationSave}
           handleAddEducationSave={this.handleAddEducationSave}
           handleAddEducationCancel={this.handleAddEducationCancel}
+          handleEditEducation={this.handleEditEducation}
+          handleEditEducationSave={this.handleEditEducationSave}
+          handleEditEducationDelete={this.handleEditEducationDelete}
+          handleAddExperience={this.handleAddExperience}
+          handleAddExperienceSave={this.handleAddExperienceSave}
+          handleAddExperienceCancel={this.handleAddExperienceCancel}
+          handleEditExperience={this.handleEditExperience}
+          handleEditExperienceSave={this.handleEditExperienceSave}
+          handleEditExperienceDelete={this.handleEditExperienceDelete}
           user={user}
         />
-        <Preview />
+        <Preview
+          user={user}
+        />
       </main>
     );
   }

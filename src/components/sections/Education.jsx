@@ -6,6 +6,7 @@ import plusImg from '../../img/plus.svg';
 import checkImg from '../../img/check.svg';
 import xImg from '../../img/x.svg';
 import EditImg from '../../img/edit.svg';
+import deleteImg from '../../img/delete.svg';
 
 export default function Education({
   expendedEducation,
@@ -16,6 +17,7 @@ export default function Education({
   handleAddEducation,
   handleEditEducation,
   handleEditEducationSave,
+  handleEditEducationDelete,
   handleAddEducationSave,
   handleAddEducationCancel,
   educationArray,
@@ -54,10 +56,24 @@ export default function Education({
             <input defaultValue={educationEditObj.endDate} className="date-input" placeholder=" " id="end-date-input" type="month" />
             <label htmlFor="end-date-input">End Date</label>
           </div>
-          <div className="edit-btns">
+          <div className="input description-input">
+            <textarea
+              placeholder=" "
+              defaultValue={educationEditObj.description}
+              id="description-input"
+              rows="5"
+              cols="33"
+            />
+            <label htmlFor="description-input">Description</label>
+          </div>
+          <div className="edit-btns education-edit-btns">
             <button onClick={handleAddEducationCancel} type="button" className="btn education-cancel-btn">
               <img src={xImg} alt="cancel" />
               Cancel
+            </button>
+            <button onClick={handleEditEducationDelete} type="button" className="btn education-delete-btn">
+              <img className="delete-img" src={deleteImg} alt="delete" />
+              Delete
             </button>
             <button onClick={handleEditEducationSave} type="button" className="btn education-confirm-btn">
               <img src={checkImg} alt="save" />
@@ -152,6 +168,15 @@ export default function Education({
           <input className="date-input" placeholder=" " id="end-date-input" type="month" />
           <label htmlFor="end-date-input">End Date</label>
         </div>
+        <div className="input description-input">
+          <textarea
+            placeholder=" "
+            id="description-input"
+            rows="5"
+            cols="33"
+          />
+          <label htmlFor="description-input">Description</label>
+        </div>
         <div className="edit-btns">
           <button onClick={handleAddEducationCancel} type="button" className="btn education-cancel-btn">
             <img src={xImg} alt="cancel" />
@@ -180,4 +205,5 @@ Education.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   educationEditObj: PropTypes.object.isRequired,
   handleEditEducationSave: PropTypes.func.isRequired,
+  handleEditEducationDelete: PropTypes.func.isRequired,
 };

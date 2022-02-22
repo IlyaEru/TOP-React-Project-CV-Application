@@ -113,6 +113,7 @@ summary {
   display: list-item;
 }
 /* modern normalize end */
+
 @font-face {
   font-family: flix;
   src: url("./Flix-Normal.ttf");
@@ -172,10 +173,17 @@ header {
 /* Main */
 main {
   flex: 1;
-  width: 100%;
+  width: 80%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  // justify-items: center;
+  @media (orientation: portrait) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  //   @media (max-aspect-ratio: 4/3) {
+  //    grid-template-columns: 1fr;
+  //   grid-template-rows: 1fr 1fr;
+  // }
   .sections-container {
     display: flex;
     flex-direction: column;
@@ -186,6 +194,9 @@ main {
       gap: 3px;
     }
     justify-self: end;
+    @media (orientation: portrait) {
+      justify-self: center;
+    }
     width: 70%;
     margin: 2rem;
     .section-header-wraper {
@@ -224,10 +235,12 @@ main {
     }
     .personal-details-section {
       display: grid;
-      grid-template-columns: 100px auto;
+      grid-template-columns: auto 1fr;
       gap: 1rem 2rem;
       img.personal-photo {
         height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
       }
       h4,
       h5 {
@@ -239,12 +252,20 @@ main {
       flex-direction: column;
       gap: 1.2rem;
       padding: 2rem 10%;
+      .description-input {
+        grid-column: 1 / -1;
+      }
       .input {
         display: flex;
         position: relative;
-        input {
+        input,
+        textarea {
           width: 100%;
           border: none;
+          &#description-input,
+          &#experience-description-input {
+            border: 2px solid #e5e7eb;
+          }
           border-bottom: 2px solid #e5e7eb;
           transition: all 200ms;
           &:focus,
@@ -269,6 +290,7 @@ main {
             }
           }
         }
+
         label {
           opacity: 0.5;
           transition: all 200ms;
@@ -296,6 +318,18 @@ main {
           gap: 5px;
         }
       }
+      .photo-input {
+        label {
+          margin-right: 0;
+          font-weight: bold;
+          &::after {
+            content: " (optional)";
+            font-weight: 100;
+            opacity: 0.4;
+            font-size: 0.8rem;
+          }
+        }
+      }
     }
     .expandable-section.expanded {
       & ~ div {
@@ -308,6 +342,7 @@ main {
       }
     }
     .education-details-section,
+    .section-edit,
     .experience-details-section {
       display: grid;
       grid-template-rows: auto auto;
@@ -316,6 +351,11 @@ main {
       height: 0;
       overflow: hidden;
       padding: 0;
+      &.personal-datails-edit {
+        height: auto;
+        opacity: 1;
+        padding: 2rem 10%;
+      }
 
       .add-education-btn,
       .add-experience-btn {
@@ -336,17 +376,31 @@ main {
   }
   .education-edit.section-edit {
     display: grid;
-    grid-template: repeat(5, auto) / repeat(2, 1fr);
+    grid-template: repeat(5, auto) / repeat(2, 46%);
     .degree-input,
     .school-input,
     .edit-btns {
+      grid-template-columns: 1fr 2fr;
       grid-column: 1 / -1;
+      img {
+        height: 1.6rem;
+      }
+    }
+    .education-edit-btns {
+      grid-template-columns: 1fr 1fr 2fr;
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr 1fr;
+        .education-confirm-btn {
+          grid-column: 1/ -1;
+        }
+      }
     }
     .date-input-wraper {
       margin-top: 0.6rem;
     }
   }
-  .education-list {
+  .education-list,
+  .experience-list {
     ul {
       list-style: none;
       padding: 0;
@@ -356,13 +410,15 @@ main {
         display: grid;
         grid-template: repeat(2, 1fr) / auto auto 1fr auto;
         gap: 3px;
-        .school {
+        .school,
+        .job-title {
           font-weight: bold;
           color: #215270;
           grid-row: 1;
           grid-column: 1;
         }
-        .degree {
+        .degree,
+        .employer {
           grid-column: 2 / 3;
           color: #215270;
         }
@@ -378,6 +434,7 @@ main {
         .edit-education-btn {
           grid-column: 4 / span 1;
           grid-row: 1 / span 2;
+          padding: 0.5rem;
           > img {
             height: 2rem;
           }
@@ -385,14 +442,121 @@ main {
       }
     }
   }
+  .experience-details-section {
+    .edit-experience-btn {
+      grid-row: 1 / span 2;
+      padding: 0.5rem;
+      > img {
+        height: 2rem;
+      }
+    }
+  }
+  .add-experience-section.section-edit,
+  .Experience-edit.section-edit {
+    display: grid;
+    grid-template: repeat(5, auto) / repeat(2, 46%);
+    .job-title-input,
+    .employer-input {
+      grid-column: 1 / -1;
+    }
+    .date-input-wraper {
+      margin-top: 0.6rem;
+    }
+    .edit-btns {
+      grid-column: 1 / -1;
+    }
+  }
+  .Experience-edit.section-edit {
+    .edit-btns.Experience-edit-btns {
+      grid-template-columns: 1fr 1fr 2fr;
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr 1fr;
+        .Experience-confirm-btn {
+          grid-column: 1/ -1;
+        }
+      }
+      img {
+        height: 1.6rem;
+      }
+    }
+  }
+  label {
+    margin-right: -3px;
+  }
   .preview-container {
+    font-size: 0.8rem;
     background: $content-background;
     margin: 2rem;
     aspect-ratio: 1 / 1.4;
     border-radius: 5px;
     box-shadow: 0 0 20px 0px #00000021;
+    .preview-header {
+      .resume-photo {
+        height: 5em;
+        width: 5em;
+        border-radius: 50%;
+        margin-top: 2rem;
+      }
+      h2.preview-fullname {
+        margin-bottom: 0.2rem;
+      }
+      h3.preview-job-title {
+        font-weight: normal;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .preview-job-title {
+        margin: 0 0 0.5rem 0;
+      }
+      .preview-general-info {
+        display: flex;
+        gap: 1rem;
+        span {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+      }
+      .preview-education,
+      .preview-experience {
+        width: 80%;
+        .preview-education-header,
+        .preview-experience-header {
+          width: 100%;
+          border-bottom: 1px solid;
+          margin-bottom: 0;
+        }
+        .preview-education-list,
+        .preview-experience-list {
+          list-style: none;
+          padding-left: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          li {
+            display: grid;
+            grid-template: auto 1fr / auto 1fr;
+            gap: 2px 3rem;
+            .date {
+              grid-column: 1;
+              grid-row: 1;
+            }
+            .degree-name,
+            .job-title-name {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      .preview-general-img {
+        height: 1rem;
+      }
+    }
   }
 }
+
 /* Footer */
 footer {
   opacity: 0.8;
