@@ -234,7 +234,7 @@ main {
         margin: 0;
       }
     }
-    .personal-details-edit {
+    .section-edit {
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
@@ -258,6 +258,16 @@ main {
             outline: none;
             border-bottom: 2px solid $edit-blue-color;
           }
+          &.date-input:not(:placeholder-shown) {
+            & ~ label {
+              opacity: 0.4;
+            }
+          }
+          &.date-input:valid {
+            & ~ label {
+              opacity: 1;
+            }
+          }
         }
         label {
           opacity: 0.5;
@@ -272,7 +282,7 @@ main {
           }
         }
       }
-      .personal-edit-btns {
+      .edit-btns {
         display: grid;
         grid-template-columns: 1fr 2fr;
         padding: 0 1rem;
@@ -291,27 +301,86 @@ main {
       & ~ div {
         opacity: 1;
         height: auto;
+        padding: 2rem 10%;
+        & .btn {
+          display: flex;
+        }
       }
     }
-    .education-details-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .education-details-section,
+    .experience-details-section {
+      display: grid;
+      grid-template-rows: auto auto;
       transition: all 1s;
       opacity: 0;
       height: 0;
       overflow: hidden;
+      padding: 0;
 
-      .add-education-btn {
-        display: flex;
+      .add-education-btn,
+      .add-experience-btn {
         border-color: $edit-blue-color;
         height: 3rem;
+        width: 10rem;
+        justify-self: center;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 5px;
-        .add-education-img {
+        display: none;
+        .add-img {
           height: 1.3rem;
+        }
+      }
+    }
+  }
+  .education-edit.section-edit {
+    display: grid;
+    grid-template: repeat(5, auto) / repeat(2, 1fr);
+    .degree-input,
+    .school-input,
+    .edit-btns {
+      grid-column: 1 / -1;
+    }
+    .date-input-wraper {
+      margin-top: 0.6rem;
+    }
+  }
+  .education-list {
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        border-top: 1px solid darkgrey;
+        padding: 0.5rem 0;
+        display: grid;
+        grid-template: repeat(2, 1fr) / auto auto 1fr auto;
+        gap: 3px;
+        .school {
+          font-weight: bold;
+          color: #215270;
+          grid-row: 1;
+          grid-column: 1;
+        }
+        .degree {
+          grid-column: 2 / 3;
+          color: #215270;
+        }
+        .start-date {
+          grid-row: 2;
+        }
+        .end-date {
+          grid-row: 2;
+        }
+        .country {
+          grid-row: 2;
+        }
+        .edit-education-btn {
+          grid-column: 4 / span 1;
+          grid-row: 1 / span 2;
+          > img {
+            height: 2rem;
+          }
         }
       }
     }

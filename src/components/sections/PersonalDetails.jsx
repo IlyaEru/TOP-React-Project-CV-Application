@@ -23,28 +23,28 @@ export default function PersonalDetails({
     return (
       <div className="section">
         <SectionHeader handleClick={handlePersonalEdit} edit={edit} sectionName="Edit Personal Details" />
-        <div className="section-content-wraper personal-details-edit">
+        <div className="section-content-wraper section-edit">
           <div className="input">
             <input defaultValue={fullName} placeholder=" " id="full-name-input" type="text" />
-            <label htmlFor="full-name">Full name</label>
+            <label htmlFor="full-name-input">Full name</label>
           </div>
           <div className="input">
             <input defaultValue={jobTitle} placeholder=" " id="job-title-input" type="text" />
-            <label htmlFor="job-title">Job title</label>
+            <label htmlFor="job-title-input">Job title</label>
           </div>
           <div className="input">
             <input defaultValue={email} placeholder=" " id="email-input" type="email" />
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email-input">Email</label>
           </div>
           <div className="input">
             <input defaultValue={phone} placeholder=" " id="phone-input" type="number" />
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone-input">Phone</label>
           </div>
           <div className="input">
             <input defaultValue={address} placeholder=" " id="address-input" type="text" />
-            <label htmlFor="address">Address</label>
+            <label htmlFor="address-input">Address</label>
           </div>
-          <div className="personal-edit-btns">
+          <div className="edit-btns">
             <button onClick={handlePersonalEditCancel} type="button" className="btn personal-cancel-btn">
               <img src={xImg} alt="cancel" />
               Cancel

@@ -320,7 +320,7 @@ main .sections-container .personal-details-section h5 {
   margin: 0;
 }
 
-main .sections-container .personal-details-edit {
+main .sections-container .section-edit {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -332,14 +332,14 @@ main .sections-container .personal-details-edit {
   padding: 2rem 10%;
 }
 
-main .sections-container .personal-details-edit .input {
+main .sections-container .section-edit .input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   position: relative;
 }
 
-main .sections-container .personal-details-edit .input input {
+main .sections-container .section-edit .input input {
   width: 100%;
   border: none;
   border-bottom: 2px solid #e5e7eb;
@@ -347,18 +347,26 @@ main .sections-container .personal-details-edit .input input {
   transition: all 200ms;
 }
 
-main .sections-container .personal-details-edit .input input:focus ~ label, main .sections-container .personal-details-edit .input input:not(:placeholder-shown) ~ label {
+main .sections-container .section-edit .input input:focus ~ label, main .sections-container .section-edit .input input:not(:placeholder-shown) ~ label {
   -webkit-transform: translateY(-90%);
           transform: translateY(-90%);
   opacity: 1;
 }
 
-main .sections-container .personal-details-edit .input input:focus {
+main .sections-container .section-edit .input input:focus {
   outline: none;
   border-bottom: 2px solid #317dad;
 }
 
-main .sections-container .personal-details-edit .input label {
+main .sections-container .section-edit .input input.date-input:not(:placeholder-shown) ~ label {
+  opacity: 0.4;
+}
+
+main .sections-container .section-edit .input input.date-input:valid ~ label {
+  opacity: 1;
+}
+
+main .sections-container .section-edit .input label {
   opacity: 0.5;
   -webkit-transition: all 200ms;
   transition: all 200ms;
@@ -366,14 +374,14 @@ main .sections-container .personal-details-edit .input label {
   position: absolute;
 }
 
-main .sections-container .personal-details-edit .input label::after {
+main .sections-container .section-edit .input label::after {
   content: " (optional)";
   font-weight: 100;
   opacity: 0.4;
   font-size: 0.8rem;
 }
 
-main .sections-container .personal-details-edit .personal-edit-btns {
+main .sections-container .section-edit .edit-btns {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 2fr;
@@ -382,7 +390,7 @@ main .sections-container .personal-details-edit .personal-edit-btns {
   gap: 1rem;
 }
 
-main .sections-container .personal-details-edit .personal-edit-btns button {
+main .sections-container .section-edit .edit-btns button {
   border-color: #317dad;
   height: 3rem;
   display: -webkit-box;
@@ -400,32 +408,39 @@ main .sections-container .personal-details-edit .personal-edit-btns button {
 main .sections-container .expandable-section.expanded ~ div {
   opacity: 1;
   height: auto;
+  padding: 2rem 10%;
 }
 
-main .sections-container .education-details-section {
+main .sections-container .expandable-section.expanded ~ div .btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+}
+
+main .sections-container .education-details-section,
+main .sections-container .experience-details-section {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto auto;
+      grid-template-rows: auto auto;
   -webkit-transition: all 1s;
   transition: all 1s;
   opacity: 0;
   height: 0;
   overflow: hidden;
+  padding: 0;
 }
 
-main .sections-container .education-details-section .add-education-btn {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+main .sections-container .education-details-section .add-education-btn,
+main .sections-container .education-details-section .add-experience-btn,
+main .sections-container .experience-details-section .add-education-btn,
+main .sections-container .experience-details-section .add-experience-btn {
   border-color: #317dad;
   height: 3rem;
+  width: 10rem;
+  justify-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -434,10 +449,92 @@ main .sections-container .education-details-section .add-education-btn {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 5px;
+  display: none;
 }
 
-main .sections-container .education-details-section .add-education-btn .add-education-img {
+main .sections-container .education-details-section .add-education-btn .add-img,
+main .sections-container .education-details-section .add-experience-btn .add-img,
+main .sections-container .experience-details-section .add-education-btn .add-img,
+main .sections-container .experience-details-section .add-experience-btn .add-img {
   height: 1.3rem;
+}
+
+main .education-edit.section-edit {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (auto)[5];
+  -ms-grid-columns: (1fr)[2];
+      grid-template: repeat(5, auto)/repeat(2, 1fr);
+}
+
+main .education-edit.section-edit .degree-input,
+main .education-edit.section-edit .school-input,
+main .education-edit.section-edit .edit-btns {
+  grid-column: 1 / -1;
+}
+
+main .education-edit.section-edit .date-input-wraper {
+  margin-top: 0.6rem;
+}
+
+main .education-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+main .education-list ul li {
+  border-top: 1px solid darkgrey;
+  padding: 0.5rem 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[2];
+  -ms-grid-columns: auto auto 1fr auto;
+      grid-template: repeat(2, 1fr)/auto auto 1fr auto;
+  gap: 3px;
+}
+
+main .education-list ul li .school {
+  font-weight: bold;
+  color: #215270;
+  -ms-grid-row: 1;
+  grid-row: 1;
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+main .education-list ul li .degree {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2 / 3;
+  color: #215270;
+}
+
+main .education-list ul li .start-date {
+  -ms-grid-row: 2;
+  grid-row: 2;
+}
+
+main .education-list ul li .end-date {
+  -ms-grid-row: 2;
+  grid-row: 2;
+}
+
+main .education-list ul li .country {
+  -ms-grid-row: 2;
+  grid-row: 2;
+}
+
+main .education-list ul li .edit-education-btn {
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  grid-column: 4 / span 1;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1 / span 2;
+}
+
+main .education-list ul li .edit-education-btn > img {
+  height: 2rem;
 }
 
 main .preview-container {

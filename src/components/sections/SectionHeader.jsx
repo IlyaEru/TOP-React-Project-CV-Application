@@ -9,17 +9,17 @@ export default function SectionHeader({
   sectionName,
   edit,
   editBtn,
-  expendedEducation,
+  expendedSection,
   handleClick,
-  handleEducationExpansion,
+  handleSectionExpansion,
 }) {
   if (edit === false) {
     if (editBtn === false) {
-      if (expendedEducation === false) {
+      if (expendedSection === false) {
         return (
           <div
-            onClick={handleEducationExpansion}
-            onKeyDown={handleEducationExpansion}
+            onClick={handleSectionExpansion}
+            onKeyDown={handleSectionExpansion}
             className="section-header-wraper expandable-section"
             role="button"
             tabIndex={0}
@@ -31,8 +31,8 @@ export default function SectionHeader({
       }
       return (
         <div
-          onClick={handleEducationExpansion}
-          onKeyDown={handleEducationExpansion}
+          onClick={handleSectionExpansion}
+          onKeyDown={handleSectionExpansion}
           className="section-header-wraper expandable-section expanded"
           role="button"
           tabIndex={0}
@@ -60,14 +60,15 @@ export default function SectionHeader({
 }
 SectionHeader.propTypes = {
   sectionName: PropTypes.string.isRequired,
-  edit: PropTypes.bool.isRequired,
+  edit: PropTypes.bool,
   handleClick: PropTypes.func,
   editBtn: PropTypes.bool,
-  expendedEducation: PropTypes.bool,
-  handleEducationExpansion: PropTypes.func,
+  expendedSection: PropTypes.bool,
+  handleSectionExpansion: PropTypes.func,
 
 };
 SectionHeader.defaultProps = {
   editBtn: true,
-  expendedEducation: false,
+  expendedSection: false,
+  edit: false,
 };
