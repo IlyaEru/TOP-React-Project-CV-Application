@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/TOP-React-Project-CV-Application/static/css/main.3d3e4a95.css",
+    "main.js": "/TOP-React-Project-CV-Application/static/js/main.6c9eea1f.js",
+    "static/media/Flix-Normal.ttf": "/TOP-React-Project-CV-Application/static/media/Flix-Normal.549c5b19bf9e2d8e8dc0.ttf",
+    "static/media/delete.svg": "/TOP-React-Project-CV-Application/static/media/delete.c76c663a6d6b92c343a76db726cf8d7b.svg",
+    "static/media/github.svg": "/TOP-React-Project-CV-Application/static/media/github.09f5b9f965f0241a3115c9ea0436ba00.svg",
+    "static/media/edit.svg": "/TOP-React-Project-CV-Application/static/media/edit.d38576a3964b1b6dba01c185a0ec43a7.svg",
+    "static/media/phone.svg": "/TOP-React-Project-CV-Application/static/media/phone.6c48d180bcaaa1989d9912b35208fc46.svg",
+    "static/media/location.svg": "/TOP-React-Project-CV-Application/static/media/location.adf07021746239d5c257750dc87b73d3.svg",
+    "static/media/plus.svg": "/TOP-React-Project-CV-Application/static/media/plus.bff2a0bf3350649d752cec57afeda047.svg",
+    "index.html": "/TOP-React-Project-CV-Application/index.html",
+    "static/media/email.svg": "/TOP-React-Project-CV-Application/static/media/email.09f59b228b67847fa9c917396a218b25.svg",
+    "static/media/person.svg": "/TOP-React-Project-CV-Application/static/media/person.f02722aa3869fdcf6e60c45e8a0b9541.svg",
+    "static/media/x.svg": "/TOP-React-Project-CV-Application/static/media/x.4bbc1561b5ac2fe2bed3c0ca173ef19e.svg",
+    "static/media/check.svg": "/TOP-React-Project-CV-Application/static/media/check.6d55832d55284b7c71458c6dbbf1c91b.svg",
+    "static/media/down.svg": "/TOP-React-Project-CV-Application/static/media/down.f9e6946ecd5321a8da64cdaa15d4039b.svg",
+    "static/media/up.svg": "/TOP-React-Project-CV-Application/static/media/up.4324c2e83b7f9018c5449fc164e2cbb3.svg",
+    "main.3d3e4a95.css.map": "/TOP-React-Project-CV-Application/static/css/main.3d3e4a95.css.map",
+    "main.6c9eea1f.js.map": "/TOP-React-Project-CV-Application/static/js/main.6c9eea1f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3d3e4a95.css",
+    "static/js/main.6c9eea1f.js"
+  ]
+}
