@@ -2,6 +2,8 @@
 
 ## <a href="https://ilyaeru.github.io/TOP-React-Project-CV-Application/">live Preview</a><br>
 
+![page preview](https://github.com/IlyaEru/TOP-React-Project-CV-Application/blob/main/src/img/cv-app-show.png?raw=true)
+
 Images are from https://www.svgrepo.com/
 
 # _My Work_
