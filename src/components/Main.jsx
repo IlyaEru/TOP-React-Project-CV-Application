@@ -78,34 +78,6 @@ export default class Main extends React.Component {
     }));
   }
 
-  handlePersonalEditCancel() {
-    this.setState((prevState) => ({
-      user: {
-        general: {
-          generalEdit: false,
-          photo: prevState.user.general.photo,
-          fullName: prevState.user.general.fullName,
-          email: prevState.user.general.email,
-          address: prevState.user.general.address,
-          jobTitle: prevState.user.general.jobTitle,
-          phone: prevState.user.general.phone,
-        },
-        education: {
-          educationEdit: prevState.user.education.educationEdit,
-          educationEditObj: prevState.user.education.educationEditObj,
-          addEducation: prevState.user.education.addEducation,
-          educationArray: prevState.user.education.educationArray,
-        },
-        experience: {
-          experienceEdit: prevState.user.experience.experienceEdit,
-          experienceEditObj: prevState.user.experience.experienceEditObj,
-          addExperience: prevState.user.experience.addExperience,
-          experienceArray: prevState.user.experience.experienceArray,
-        },
-      },
-    }));
-  }
-
   handlePersonalEditSave() {
     const photo = document.querySelector('#avatar-input').files[0];
     // eslint-disable-next-line react/destructuring-assignment
@@ -142,10 +114,75 @@ export default class Main extends React.Component {
     }));
   }
 
+  handlePersonalEditCancel() {
+    this.setState((prevState) => ({
+      user: {
+        general: {
+          generalEdit: false,
+          photo: prevState.user.general.photo,
+          fullName: prevState.user.general.fullName,
+          email: prevState.user.general.email,
+          address: prevState.user.general.address,
+          jobTitle: prevState.user.general.jobTitle,
+          phone: prevState.user.general.phone,
+        },
+        education: {
+          educationEdit: prevState.user.education.educationEdit,
+          educationEditObj: prevState.user.education.educationEditObj,
+          addEducation: prevState.user.education.addEducation,
+          educationArray: prevState.user.education.educationArray,
+        },
+        experience: {
+          experienceEdit: prevState.user.experience.experienceEdit,
+          experienceEditObj: prevState.user.experience.experienceEditObj,
+          addExperience: prevState.user.experience.addExperience,
+          experienceArray: prevState.user.experience.experienceArray,
+        },
+      },
+    }));
+  }
+
   handleAddEducation() {
     // eslint-disable-next-line react/destructuring-assignment
     const stateCopy = JSON.parse(JSON.stringify(this.state.user));
     stateCopy.education.addEducation = true;
+    this.setState({ user: stateCopy });
+  }
+
+  handleAddEducationSave() {
+    const degreeInput = document.querySelector('#degree-input').value;
+    const schoolInput = document.querySelector('#school-input').value;
+    const cityInput = document.querySelector('#city-input').value;
+    const countryInput = document.querySelector('#country-input').value;
+    const startDateInput = document.querySelector('#start-date-input').value;
+    const endDateInput = document.querySelector('#end-date-input').value;
+    const descriptionInput = document.querySelector('#description-input').value;
+
+    const educationId = uniqid();
+
+    const newEducation = {
+      degree: degreeInput || '',
+      school: schoolInput || '',
+      country: countryInput || '',
+      city: cityInput || '',
+      startDate: startDateInput || '',
+      endDate: endDateInput || '',
+      description: descriptionInput || '',
+      id: educationId,
+
+    };
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    stateCopy.education.educationArray.push(newEducation);
+    stateCopy.education.addEducation = false;
+    this.setState({ user: stateCopy });
+  }
+
+  handleAddEducationCancel() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
+    stateCopy.education.addEducation = false;
+    stateCopy.education.educationEdit = false;
     this.setState({ user: stateCopy });
   }
 
@@ -288,50 +325,13 @@ export default class Main extends React.Component {
     this.setState({ user: stateCopy });
   }
 
-  handleAddEducationSave() {
-    const degreeInput = document.querySelector('#degree-input').value;
-    const schoolInput = document.querySelector('#school-input').value;
-    const cityInput = document.querySelector('#city-input').value;
-    const countryInput = document.querySelector('#country-input').value;
-    const startDateInput = document.querySelector('#start-date-input').value;
-    const endDateInput = document.querySelector('#end-date-input').value;
-    const descriptionInput = document.querySelector('#description-input').value;
-
-    const educationId = uniqid();
-
-    const newEducation = {
-      degree: degreeInput || '',
-      school: schoolInput || '',
-      country: countryInput || '',
-      city: cityInput || '',
-      startDate: startDateInput || '',
-      endDate: endDateInput || '',
-      description: descriptionInput || '',
-      id: educationId,
-
-    };
-    // eslint-disable-next-line react/destructuring-assignment
-    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
-    stateCopy.education.educationArray.push(newEducation);
-    stateCopy.education.addEducation = false;
-    this.setState({ user: stateCopy });
-  }
-
-  handleAddEducationCancel() {
-    // eslint-disable-next-line react/destructuring-assignment
-    const stateCopy = JSON.parse(JSON.stringify(this.state.user));
-    stateCopy.education.addEducation = false;
-    stateCopy.education.educationEdit = false;
-    this.setState({ user: stateCopy });
-  }
-
   render() {
     const { user } = this.state;
     return (
       <main>
         <Sections
-          handlePersonalEditSave={this.handlePersonalEditSave}
           handlePersonalEdit={this.handlePersonalEdit}
+          handlePersonalEditSave={this.handlePersonalEditSave}
           handlePersonalEditCancel={this.handlePersonalEditCancel}
           handleAddEducation={this.handleAddEducation}
           handleAddEducationSave={this.handleAddEducationSave}

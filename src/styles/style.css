@@ -250,6 +250,12 @@ main .sections-container {
   margin: 2rem;
 }
 
+@media (max-width: 600px) {
+  main .sections-container {
+    font-size: 0.8rem;
+  }
+}
+
 main .sections-container .section {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -388,16 +394,6 @@ main .sections-container .section-edit .input input:focus,
 main .sections-container .section-edit .input textarea:focus {
   outline: none;
   border-bottom: 2px solid #317dad;
-}
-
-main .sections-container .section-edit .input input.date-input:not(:placeholder-shown) ~ label,
-main .sections-container .section-edit .input textarea.date-input:not(:placeholder-shown) ~ label {
-  opacity: 0.4;
-}
-
-main .sections-container .section-edit .input input.date-input:valid ~ label,
-main .sections-container .section-edit .input textarea.date-input:valid ~ label {
-  opacity: 1;
 }
 
 main .sections-container .section-edit .input label {
@@ -701,6 +697,12 @@ main .preview-container {
   border-radius: 5px;
   -webkit-box-shadow: 0 0 20px 0px #00000021;
           box-shadow: 0 0 20px 0px #00000021;
+}
+
+@media (max-width: 600px) {
+  main .preview-container {
+    font-size: 0.6rem;
+  }
 }
 
 main .preview-container .preview-header {

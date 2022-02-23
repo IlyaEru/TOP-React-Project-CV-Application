@@ -185,6 +185,9 @@ main {
   //   grid-template-rows: 1fr 1fr;
   // }
   .sections-container {
+    @media (max-width: 600px) {
+      font-size: 0.8rem;
+    }
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -279,16 +282,16 @@ main {
             outline: none;
             border-bottom: 2px solid $edit-blue-color;
           }
-          &.date-input:not(:placeholder-shown) {
-            & ~ label {
-              opacity: 0.4;
-            }
-          }
-          &.date-input:valid {
-            & ~ label {
-              opacity: 1;
-            }
-          }
+          // &.date-input:not(:placeholder-shown) {
+          //   & ~ label {
+          //     opacity: 0.4;
+          //   }
+          // }
+          // &.date-input:valid {
+          //   & ~ label {
+          //     opacity: 1;
+          //   }
+          // }
         }
 
         label {
@@ -485,6 +488,9 @@ main {
   }
   .preview-container {
     font-size: 0.8rem;
+    @media (max-width: 600px) {
+      font-size: 0.6rem;
+    }
     background: $content-background;
     margin: 2rem;
     aspect-ratio: 1 / 1.4;

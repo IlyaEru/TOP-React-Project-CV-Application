@@ -22,6 +22,9 @@ export default function ProfessionalExperience({
   handleAddExperienceCancel,
   experienceArray,
 }) {
+  function handleDate(e) {
+    e.currentTarget.type = 'month';
+  }
   if (experienceEdit === true) {
     return (
       <div className="section">
@@ -49,11 +52,11 @@ export default function ProfessionalExperience({
             <label htmlFor="experience-country-input">Country</label>
           </div>
           <div className="date-input-wraper input">
-            <input defaultValue={experienceEditObj.startDate} className="experience-date-input" placeholder=" " id="experience-start-date-input" type="month" />
+            <input onFocus={handleDate} defaultValue={experienceEditObj.startDate} className="experience-date-input" placeholder=" " id="experience-start-date-input" type="text" />
             <label htmlFor="experience-start-date-input">Start Date</label>
           </div>
           <div className="date-input-wraper input">
-            <input defaultValue={experienceEditObj.endDate} className="experience-date-input" placeholder=" " id="experience-end-date-input" type="month" />
+            <input onFocus={handleDate} defaultValue={experienceEditObj.endDate} className="experience-date-input" placeholder=" " id="experience-end-date-input" type="text" />
             <label htmlFor="experience-end-date-input">End Date</label>
           </div>
           <div className="input description-input">
@@ -160,11 +163,11 @@ export default function ProfessionalExperience({
           <label htmlFor="experience-country-input">Country</label>
         </div>
         <div className="date-input-wraper input">
-          <input className="date-input" placeholder=" " id="experience-start-date-input" type="month" />
+          <input onFocus={handleDate} className="date-input" placeholder=" " id="experience-start-date-input" type="text" />
           <label htmlFor="experience-start-date-input">Start Date</label>
         </div>
         <div className="date-input-wraper input">
-          <input className="date-input" placeholder=" " id="experience-end-date-input" type="month" />
+          <input onFocus={handleDate} className="date-input" placeholder=" " id="experience-end-date-input" type="text" />
           <label htmlFor="experience-end-date-input">End Date</label>
         </div>
         <div className="input description-input">

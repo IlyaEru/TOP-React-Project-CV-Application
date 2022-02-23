@@ -22,6 +22,9 @@ export default function Education({
   handleAddEducationCancel,
   educationArray,
 }) {
+  function handleDate(e) {
+    e.currentTarget.type = 'month';
+  }
   if (educationEdit === true) {
     return (
       <div className="section">
@@ -49,11 +52,11 @@ export default function Education({
             <label htmlFor="country-input">Country</label>
           </div>
           <div className="date-input-wraper input">
-            <input defaultValue={educationEditObj.startDate} className="date-input" placeholder=" " id="start-date-input" type="month" />
+            <input onFocus={handleDate} defaultValue={educationEditObj.startDate} className="date-input" placeholder=" " id="start-date-input" type="text" />
             <label htmlFor="start-date-input">Start Date</label>
           </div>
           <div className="date-input-wraper input">
-            <input defaultValue={educationEditObj.endDate} className="date-input" placeholder=" " id="end-date-input" type="month" />
+            <input onFocus={handleDate} defaultValue={educationEditObj.endDate} className="date-input" placeholder=" " id="end-date-input" type="text" />
             <label htmlFor="end-date-input">End Date</label>
           </div>
           <div className="input description-input">
@@ -161,11 +164,11 @@ export default function Education({
           <label htmlFor="country-input">Country</label>
         </div>
         <div className="date-input-wraper input">
-          <input className="date-input" placeholder=" " id="start-date-input" type="month" />
+          <input onFocus={handleDate} className="date-input" placeholder=" " id="start-date-input" type="text" />
           <label htmlFor="start-date-input">Start Date</label>
         </div>
         <div className="date-input-wraper input">
-          <input className="date-input" placeholder=" " id="end-date-input" type="month" />
+          <input onFocus={handleDate} className="date-input" placeholder=" " id="end-date-input" type="text" />
           <label htmlFor="end-date-input">End Date</label>
         </div>
         <div className="input description-input">
