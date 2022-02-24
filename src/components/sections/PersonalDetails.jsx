@@ -27,6 +27,7 @@ export default function PersonalDetails({
         <div className="section-content-wraper section-edit personal-datails-edit">
           <div className="photo-input">
             <label htmlFor="avatar">Photo</label>
+            <br />
             <input
               type="file"
               id="avatar-input"
