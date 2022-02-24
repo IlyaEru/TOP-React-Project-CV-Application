@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TOP-React-Project-CV-Application/static/css/main.3d3e4a95.css",
-    "main.js": "/TOP-React-Project-CV-Application/static/js/main.6c9eea1f.js",
+    "main.js": "/TOP-React-Project-CV-Application/static/js/main.efd314c1.js",
     "static/media/Flix-Normal.ttf": "/TOP-React-Project-CV-Application/static/media/Flix-Normal.549c5b19bf9e2d8e8dc0.ttf",
     "static/media/delete.svg": "/TOP-React-Project-CV-Application/static/media/delete.c76c663a6d6b92c343a76db726cf8d7b.svg",
     "static/media/github.svg": "/TOP-React-Project-CV-Application/static/media/github.09f5b9f965f0241a3115c9ea0436ba00.svg",
@@ -17,10 +17,10 @@
     "static/media/down.svg": "/TOP-React-Project-CV-Application/static/media/down.f9e6946ecd5321a8da64cdaa15d4039b.svg",
     "static/media/up.svg": "/TOP-React-Project-CV-Application/static/media/up.4324c2e83b7f9018c5449fc164e2cbb3.svg",
     "main.3d3e4a95.css.map": "/TOP-React-Project-CV-Application/static/css/main.3d3e4a95.css.map",
-    "main.6c9eea1f.js.map": "/TOP-React-Project-CV-Application/static/js/main.6c9eea1f.js.map"
+    "main.efd314c1.js.map": "/TOP-React-Project-CV-Application/static/js/main.efd314c1.js.map"
   },
   "entrypoints": [
     "static/css/main.3d3e4a95.css",
-    "static/js/main.6c9eea1f.js"
+    "static/js/main.efd314c1.js"
   ]
 }
